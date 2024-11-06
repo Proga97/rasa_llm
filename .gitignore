@@ -1,0 +1,5 @@
+.env
+/.rasa/
+models/
+.models/
+!/.gitignore

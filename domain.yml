@@ -3,31 +3,47 @@ version: "3.1"
 intents:
   - tell_pun
 
-entities:
-  - pun_sentence
-
 slots:
   pun_sentence:
     type: text
     mappings:
       - type: from_llm
-  pun_exists:
+  pun_detected:
     type: bool
+    # initial_value: false
   pun_word:
     type: text
+  pun__match_detected:
+    type: bool
+    # initial_value: false
   matched_pun_word:
     type: text
-  
 
 responses:
-  utter_ask_pun:
+  utter_greet:
+    - text: "Hello, I'm PunAmstrong powered by RASA-PRO! I'm here to help you detect puns!"
+      metadata:
+        rephrase: True
+  utter_ask_pun_sentence:
     - text: "Please tell me a pun sentence."
-
+      metadata:
+        rephrase: True
   utter_no_pun_detected:
     - text: "No pun detected. Please try another sentence."
-
+      metadata:
+        rephrase: True
   utter_pun_detected:
-    - text: "Pun detected! Parsing the pun..."
+    - text: "Pun detected! Pun word - {pun_word}"
+      metadata:
+        rephrase: True
+  utter_no_pun_match_detected:
+    - text: "Oops couldn't find a match for the pun word!"
+      metadata:
+        rephrase: True
+  utter_pun_match_detected:
+    - text: "Pun word match found! Pun word match - {matched_pun_word}"
+      metadata:
+        rephrase: True
 
 actions:
   - action_check_pun_sentence
