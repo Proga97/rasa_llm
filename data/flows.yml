@@ -1,0 +1,10 @@
+flows:
+  detect_pun_flow:
+    description: "Pun sentence detection flow"
+    steps:
+      - action: utter_ask_pun
+      - collect: pun_sentence
+      - action: action_check_pun_sentence
+      - action: action_detect_matching_pun_word
+      - action: utter_no_pun_detected
+

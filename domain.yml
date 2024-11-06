@@ -1,0 +1,34 @@
+version: "3.1"
+
+intents:
+  - tell_pun
+
+entities:
+  - pun_sentence
+
+slots:
+  pun_sentence:
+    type: text
+    mappings:
+      - type: from_llm
+  pun_exists:
+    type: bool
+  pun_word:
+    type: text
+  matched_pun_word:
+    type: text
+  
+
+responses:
+  utter_ask_pun:
+    - text: "Please tell me a pun sentence."
+
+  utter_no_pun_detected:
+    - text: "No pun detected. Please try another sentence."
+
+  utter_pun_detected:
+    - text: "Pun detected! Parsing the pun..."
+
+actions:
+  - action_check_pun_sentence
+  - action_detect_matching_pun_word
