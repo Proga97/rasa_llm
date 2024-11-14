@@ -4,6 +4,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 from open_ai_detection import detect_pun_word,detect_pun_word_match
+from word_match import find_similar_sounding_words_and_phrases
 
 
 class ActionCheckPunSentence(Action):
@@ -82,11 +83,13 @@ class ActionCheckMatchingPunWord(Action):
         # x = random.choice([True, False])
         # return [ x , "matched_pun_word" if x else None]
 
-        text = detect_pun_word_match(sentence)
-        x = text.split(",")
-        print("gpt ans = "  + x[0] == 'True' + x[1])
+        # text = detect_pun_word_match(sentence)
+        text = find_similar_sounding_words_and_phrases(sentence)
+        # x = text.split(",")
+        print(text)
+        # print("gpt ans = "  + x[0] == 'True' + x[1])
 
         ############# Hassan and Denison's pun word detection algo goes here;
 
-        return x[0],x[1]
+        # return x[0],x[1]
     
