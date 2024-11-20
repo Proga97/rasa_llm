@@ -96,10 +96,7 @@ def handle_homophone(lm, pun):
         lm += 'The joke relies on the homophone "' + pun + '", which sounds like "' + homophone + '". ' + gen(stop='.', name='explanation')
         return 'The joke relies on the homophone "' + pun + '", which sounds like "' + homophone + '". ' + (lm['explanation'] + '.' if 'explanation' in lm else '')
 
-def explain_joke(joke):
-    
-    with system():
-        lm = llama + system_chatbot    
+def chatbot_response(joke):   
     
     with user():
         lm += 'Please explain this joke: "' + joke + '"'
