@@ -1,33 +1,27 @@
 flows:
-  say_hello:
+  greet:
     description: "Greet the user"
+    nlu_trigger:
+    - intent: session_start
     steps:
       - action: utter_greet
-      - link: detect_pun_flow
-  detect_pun_flow:
-    description: "Pun sentence detection flow"
+
+  on_joke:
+    description: "Called when the user says a joke or pun"
     steps:
-      - collect: pun_sentence
-        description: "the pun given by the user"
-      - action: action_check_pun_sentence
-        next:
-          - if: slots.pun_detected
-            then:
-              - action: utter_pun_detected
-              - link: detect_matching_pun_word_flow
-          - else:
-              - action: utter_no_pun_detected
-              - link: detect_pun_flow
-  detect_matching_pun_word_flow:
-    description: "Pun word matching flow"
+      - collect: joke
+        description: "The joke or pun that the user said"
+      - action: utter_response_joke
+
+  explain_pun:
+    description: "Called if the user asks for the explanation of a pun or joke"
     steps:
-      # - action: utter_pun_detected
-      - action: action_detect_matching_pun_word
-        next:
-          - if: slots.pun__match_detected
-            then:
-              - action: utter_pun_match_detected
-              - link: detect_pun_flow
-          - else:
-              - action: utter_no_pun_match_detected
-              - link: detect_pun_flow
+      - collect: joke
+        description: "The joke or pun for which the explanation is requested"
+      - action: action_explain_joke
+
+  pattern_chitchat:
+    description: handle any non-joke related chitchat
+    name: pattern chitchat
+    steps:
+      - action: utter_free_chitchat_response

@@ -1,5 +1,8 @@
 .env
-/.rasa/
 models/
 .models/
 !/.gitignore
+
+venv
+__pycache__
+.rasa

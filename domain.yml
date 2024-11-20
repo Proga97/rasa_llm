@@ -1,50 +1,54 @@
 version: "3.1"
 
 intents:
-  - tell_pun
+  - session_start
 
 slots:
-  pun_sentence:
+  joke:
     type: text
     mappings:
       - type: from_llm
-  pun_detected:
-    type: bool
-    # initial_value: false
-  pun_word:
-    type: text
-  pun__match_detected:
-    type: bool
-    # initial_value: false
-  matched_pun_word:
-    type: text
 
 responses:
   utter_greet:
-    - text: "Hello, I'm PunAmstrong powered by RASA-PRO! I'm here to help you detect puns!"
+    - text: "Hi there, I'm PunAmstrong, powered by RASA-CaLM! Are you ready for some laughs?"
       metadata:
         rephrase: True
-  utter_ask_pun_sentence:
-    - text: "Please tell me a pun sentence."
-      metadata:
-        rephrase: True
-  utter_no_pun_detected:
-    - text: "No pun detected. Please try another sentence."
-      metadata:
-        rephrase: True
-  utter_pun_detected:
-    - text: "Pun detected! Pun word - {pun_word}"
-      metadata:
-        rephrase: True
-  utter_no_pun_match_detected:
-    - text: "Oops couldn't find a match for the pun word!"
-      metadata:
-        rephrase: True
-  utter_pun_match_detected:
-    - text: "Pun word match found! Pun word match - {matched_pun_word}"
+  
+  utter_ask_joke:
+    - text: "Please remind me of the pun or joke you want me to explain."
       metadata:
         rephrase: True
 
+  utter_response_joke:
+    - text: "Ha ha ha! That's a good one! Do you want me to explain it?"
+      metadata:
+        rephrase: True
+
+  utter_free_chitchat_response:
+  - text: "placeholder_this_utterance_needs_the_rephraser"
+    metadata:
+      rephrase: True
+      rephrase_prompt: |
+        You are an incredibly friendly assistant. Generate a short
+        response to the user's comment in simple english. You love
+        to joke around and make people laugh.
+
+        User: {{current_input}}
+        Response:
+
+  utter_explain_joke:
+    - text: "placeholder_this_utterance_needs_the_rephraser"
+      metadata:
+        rephrase: True
+        rephrase_prompt: |
+          You are an incredibly friendly assistant. Explain the 
+          humor in the joke that the user has shared. The 
+          explanation should be simple and easy to understand.
+
+          User: {{current_input}}
+          Joke: {{joke}}
+          Response:
+
 actions:
-  - action_check_pun_sentence
-  - action_detect_matching_pun_word
+  - action_explain_joke
