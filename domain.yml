@@ -1,8 +1,5 @@
 version: "3.1"
 
-intents:
-  - session_start
-
 slots:
   joke:
     type: text
@@ -23,7 +20,7 @@ responses:
   utter_response_joke:
     - text: "Ha ha ha! That's a good one! Do you want me to explain it?"
       metadata:
-        rephrase: True
+        rephrase: False
 
   utter_free_chitchat_response:
   - text: "placeholder_this_utterance_needs_the_rephraser"
@@ -49,6 +46,9 @@ responses:
           User: {{current_input}}
           Joke: {{joke}}
           Response:
+  
+  utter_can_do_something_else:
+    - text: ""
 
 actions:
   - action_explain_joke

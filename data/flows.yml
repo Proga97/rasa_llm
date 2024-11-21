@@ -1,23 +1,24 @@
 flows:
   greet:
     description: "Greet the user"
-    nlu_trigger:
-    - intent: session_start
     steps:
       - action: utter_greet
 
   on_joke:
-    description: "Called when the user says a joke or pun"
+    description: "Call this when the user tells a joke or pun"
     steps:
       - collect: joke
         description: "The joke or pun that the user said"
+        reset_after_flow_ends: false
+        
       - action: utter_response_joke
 
   explain_pun:
-    description: "Called if the user asks for the explanation of a pun or joke"
+    description: "Called this if the user asks for the explanation of a pun or joke"
     steps:
       - collect: joke
         description: "The joke or pun for which the explanation is requested"
+        reset_after_flow_ends: false
       - action: action_explain_joke
 
   pattern_chitchat:

@@ -1,7 +1,9 @@
 from guidance import models, gen, assistant, user, system, select, substring
-from pun_detection import get_homophones
+from pun_detection.find_homophones import get_homophones
 
 from nltk.corpus import wordnet as wn
+
+import os
 
 # Chatbot response
 system_should_explain_joke = 'Is the user asking you to explain a joke or pun?'
@@ -19,9 +21,10 @@ system_explain_joke = 'Explain the humor in the joke or pun.'
 
 error_message = None
 
-path = 'Llama-3.2-3B-Instruct-Q6_K_L.gguf'
+curr_dir = os.path.dirname(os.path.abspath(__file__))
+path = os.path.join(curr_dir, 'Llama-3.2-3B-Instruct-Q6_K_L.gguf')
 
-llama = models.LlamaCpp(path, n_ctx=4096)
+llama = models.LlamaCpp(path, echo=False, n_ctx=4096)
 
 def explain_joke(lm):
     with system():
@@ -99,7 +102,7 @@ def handle_homophone(lm, pun):
 def chatbot_response(joke):   
     
     with user():
-        lm += 'Please explain this joke: "' + joke + '"'
+        lm = llama + 'Please explain this joke: "' + joke + '"'
                 
     with system():
         lm += system_extract_pun

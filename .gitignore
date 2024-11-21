@@ -6,3 +6,5 @@ models/
 venv
 __pycache__
 .rasa
+
+*.gguf
