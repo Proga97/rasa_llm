@@ -1,0 +1,1 @@
+PunAmstrong isn't just your usual chatbot, not just regurgitating a LLM response, but utilizes NLP technologies to classify the type of pun, be it homographic or homophonic, and finds the corresponding definition or similar sounding word to clarify any joke.
